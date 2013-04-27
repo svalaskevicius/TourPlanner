@@ -51,7 +51,31 @@ describe("GeoPlanner", function() {
   });
 
   it("should calculate the shortest path given a circle", function(){
-    expect("pending").toEqual("");
+    var ret = GeoPlanner.findShortestPath(
+      [
+          {lat:51.506926 , long: -0.142608}, // green park
+          {lat:51.516354 , long: -0.130548}, // TCR
+          {lat:51.517556 , long: -0.120463}, // holborn
+          {lat:51.514939 , long: -0.142136}, // oxford circus
+          {lat:51.524712 , long: -0.138316}, // warren street
+          {lat:51.520493 , long: -0.13393},  // goodge street
+          {lat:51.501263 , long: -0.125012}, // westminster
+          {lat:51.522870 , long: -0.124197}, // russel sq
+      ],
+      {lat:51.511214, long:-0.119824} // strand / waterloo bridge
+    );
+    expect(ret).toEqual(
+      [
+          {lat:51.517556 , long: -0.120463}, // holborn
+          {lat:51.522870 , long: -0.124197}, // russel sq
+          {lat:51.520493 , long: -0.13393},  // goodge street
+          {lat:51.516354 , long: -0.130548}, // TCR
+          {lat:51.514939 , long: -0.142136}, // oxford circus
+          {lat:51.506926 , long: -0.142608}, // green park
+          {lat:51.501263 , long: -0.125012}, // westminster
+          {lat:51.524712 , long: -0.138316}, // warren street
+      ]
+    );
   });
 });
 
