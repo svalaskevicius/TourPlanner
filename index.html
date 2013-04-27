@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>TourPlanner</title>
+    <meta http-equiv="content-type" content="text/html; charset=utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="css/bootstrap.min.css" rel="stylesheet" media="screen">
+    <link href="css/bootstrap-slider.css" rel="stylesheet" media="screen">
+    <link rel="stylesheet" href="css/frontend.css" type="text/css">
+    <script src="https://maps.googleapis.com/maps/api/js?v=3.exp&sensor=true"></script>
+    <script src="http://code.jquery.com/jquery.js"></script>
+    <script src="js/bootstrap.min.js"></script>
+    <script src="js/bootstrap-slider.js"></script>
+    <script src="js/frontend.js"></script>
+</head>
+<body>
+    <div class="navbar">
+        <div class="navbar-inner">
+            <div class="container">
+                <a class="brand" href="#">TourPlanner</a>
+                <ul class="nav">
+                    <li class="active"><a href="#">Home</a></li>
+                    <li><a href="#about">About</a></li>
+                    <li><a href="#contact">Contact</a></li>
+                </ul>
+                <span class="navbar-text pull-left">Radius of <span id="radiusvalue">2000</span>m&nbsp;&nbsp;&nbsp;&nbsp;</span>
+                <div class="navbar-search pull-left">
+                    <input type="text" class="slider" value="" data-slider-min="1000" data-slider-max="7000" data-slider-step="100" data-slider-value="2000" data-slider-orientation="horizontal" data-slider-selection="after" data-slider-tooltip="hide">
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="content">
+        <div id="map"></div>
+    </div>
+</body>
+</html>
