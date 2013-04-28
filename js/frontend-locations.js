@@ -115,9 +115,15 @@ function isInSelected(title)
 function drawPolylineThroughItems(items)
 {
     var lineCoordinates = [];
-    for (var i in items) {
-        lineCoordinates[lineCoordinates.length] = items[i].getPosition();
-    }
+    lineCoordinates = GeoPlanner.findShortestPath(
+        items.map(function(item) {
+            return item.getPosition();
+        }),
+        currentPosition.getPosition(),
+        function(pos) {
+            return {lat: pos.lat(), long: pos.lng()};
+        }
+    );
     if (currentLine) {
         currentLine.setPath(lineCoordinates);
     } else {
