@@ -77,5 +77,17 @@ describe("GeoPlanner", function() {
       ]
     );
   });
+
+  it("should accepts item position adapter", function() {
+    var ret = GeoPlanner.findShortestPath(
+      [
+          {l:51.513149 , lg: -0.12454},  // covent garden
+          {l:51.516354 , lg: -0.130548}, // TCR
+      ],
+      {l:51.511214, lg:-0.119824}, // strand / waterloo bridge
+      function (item) {return {lat:item.l, long:item.lg};}
+    );
+    expect(ret[0]).toEqual({l:51.513149 , lg: -0.12454});
+  });
 });
 
