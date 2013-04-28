@@ -5,8 +5,14 @@ $(document).ready(function() {
 function callForLocations() {
     $.ajax({
         dataType: 'json',
-        url: 'file:///Users/asarturas/Sites/TourPlanner/fixtures/sample.json',
-        data: {},
+        url: 'http://pipes.yahoo.com/pipes/pipe.run',
+        data: {
+            _id: '8186a63d136a6ce1302a2d5297980ffd',
+            _render: 'json',
+            radius: $('#radiusvalue').html(),
+            location: currentPosition.getPosition().lat() + ',' + currentPosition.getPosition().lng(),
+            googleApiKey: 'AIzaSyC2L22kbDS3QqQlFb5r0Yc5TgnnhratbCA'
+        },
         success: receivedLocations
     });
 }
@@ -19,7 +25,7 @@ function receivedLocations(data) {
     }
     currentLocationsArray = Array();
     currentLocationsInfoArray = Array();
-    $.each(data.value.items[0].results, function (key, val) {
+    $.each(data.value.items, function (key, val) {
         var newKey = currentLocationsArray.length;
         var newLocation = new google.maps.Marker({
             position: new google.maps.LatLng(val.geometry.location.lat, val.geometry.location.lng),

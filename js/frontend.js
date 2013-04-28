@@ -24,7 +24,7 @@ $(document).ready(function () {
             );
             mapCenter = coords;
             map.panTo(coords);
-            var marker = new google.maps.Marker({
+            currentPosition = new google.maps.Marker({
                 position: coords,
                 map: map,
                 title: 'Hello World!',
@@ -43,6 +43,7 @@ $(document).ready(function () {
             infoWindow = new google.maps.InfoWindow({
                 map: map
             });
+            callForLocations();
         });
     } else {
         alert("You don't support this");
