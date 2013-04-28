@@ -6,8 +6,6 @@ function changeCurrentRadius(radius) {
 var mapCenter;
 var currentPosition;
 var currentRadiusView;
-var currentLocationsArray;
-var currentLocationsInfoArray;
 var infoWindow;
 var map;
 $(document).ready(function () {
