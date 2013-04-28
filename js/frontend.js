@@ -15,7 +15,7 @@ $(document).ready(function () {
     };
     map = new google.maps.Map(document.getElementById('map'), mapOptions);
     if (navigator.geolocation) {
-        navigator.geolocation.getCurrentPosition(function(center) {
+        var initloc = function(center) {
             var coords = new google.maps.LatLng(
                 center.coords.latitude,
                 center.coords.longitude
@@ -42,7 +42,14 @@ $(document).ready(function () {
                 map: map
             });
             callForLocations();
-        });
+        }
+        navigator.geolocation.getCurrentPosition(
+          initloc,
+          function(){
+            alert("Your browser did not respond with your location.\nWill use a default central London location for DEMO purpose.")
+            initloc({coords:{latitude:51.51558,longitude:-0.087891}});
+          }
+        );
     } else {
         alert("You don't support this");
     }
