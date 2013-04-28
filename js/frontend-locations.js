@@ -1,7 +1,7 @@
 var currentLocationsArray;
 var currentLocationsInfoArray;
-var currentSelectedLocationsArray = Array();
-var currentSelectedLocationsInfoArray = Array();
+var currentSelectedLocationsArray = [];
+var currentSelectedLocationsInfoArray = [];
 var currentSelectedItem;
 var currentSelectedItemInfo;
 
@@ -39,7 +39,6 @@ function receivedLocations(data) {
         });
         var newLocationInfo = val;
         currentLocationsInfoArray[newKey] = newLocationInfo;
-        console.log(newLocation.getTitle());
         currentLocationsArray[newKey] = newLocation;
         google.maps.event.addListener(newLocation, 'click', function() {
             currentSelectedItem = newLocation;
@@ -73,18 +72,29 @@ function buildContent(item, itemInfo)
 {
     res = '<strong>' + itemInfo.name + '</strong>';
     if (isInSelected(item.getTitle())) {
-        res += '<div align="right"><a href="javascript:removeCurrent()" class="btn btn-danger btn-small">Remove</a></div>';
+        res += '<div align="right"><a href="javascript:unselectCurrent()" class="btn btn-danger btn-small">Remove</a></div>';
     } else {
-        res += '<div align="right"><a href="javascript:addCurrent()" class="btn btn-success btn-small">Add</a></div>';
+        res += '<div align="right"><a href="javascript:selectCurrent()" class="btn btn-success btn-small">Add</a></div>';
     }
     return res;
 }
 
-function addCurrent()
+function selectCurrent()
 {
     currentSelectedItem.setIcon(new google.maps.MarkerImage("http://chart.apis.google.com/chart?chst=d_map_pin_letter&chld=%E2%80%A2|009900"));
     currentSelectedLocationsArray[currentSelectedLocationsArray.length] = currentSelectedItem;
     currentSelectedLocationsInfoArray[currentSelectedLocationsInfoArray.length] = currentSelectedItemInfo;
+    infoWindow.setContent(buildContent(currentSelectedItem, currentSelectedItemInfo));
+}
+
+function unselectCurrent()
+{
+    currentSelectedItem.setIcon(null);
+    for (var i in currentSelectedLocationsArray) {
+        if (currentSelectedLocationsArray[i] === currentSelectedItem) {
+            currentSelectedLocationsArray.splice(i, 1);
+        }
+    }
     infoWindow.setContent(buildContent(currentSelectedItem, currentSelectedItemInfo));
 }
 
