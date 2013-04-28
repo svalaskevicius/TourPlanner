@@ -75,9 +75,9 @@ function buildContent(item, itemInfo)
 {
     res = '<div><strong>' + itemInfo.name + '</strong>&nbsp;&nbsp;';
     if (isInSelected(item.getTitle())) {
-        res += '<a href="javascript:unselectCurrent()" class="btn btn-danger btn-small">Remove</a></div>';
+        res += '<a href="javascript:unselectCurrent()" id="button42" class="btn btn-danger btn-small">Remove</a></div>';
     } else {
-        res += '<a href="javascript:selectCurrent()" class="btn btn-success btn-small">Add</a></div>';
+        res += '<a href="javascript:selectCurrent()" id="button42" class="btn btn-success btn-small">Add</a></div>';
     }
     res += '<div style="height: 200px" id="infoWindowDetails' + itemInfo.reference + '"><div class="flickrimages"></div></div>';
     return res;
@@ -94,11 +94,6 @@ function addMoreInfo(item, itemInfo)
             format: 'json',
             diagnostics: 'true',
             env: 'store://datatables.org/alltableswithkeys'
-//            _id: '8186a63d136a6ce1302a2d5297980ffd',
-//            _render: 'json',
-//            radius: $('#radiusvalue').html(),
-//            location: currentPosition.getPosition().lat() + ',' + currentPosition.getPosition().lng(),
-//            googleApiKey: 'AIzaSyC2L22kbDS3QqQlFb5r0Yc5TgnnhratbCA'
         },
         success: function(data) {
             var div = $('#infoWindowDetails' + itemInfo.reference);
@@ -129,7 +124,7 @@ function selectCurrent()
     currentSelectedItem.setIcon(new google.maps.MarkerImage("http://chart.apis.google.com/chart?chst=d_map_pin_letter&chld=%E2%80%A2|009900"));
     currentSelectedLocationsArray[currentSelectedLocationsArray.length] = currentSelectedItem;
     currentSelectedLocationsInfoArray[currentSelectedLocationsInfoArray.length] = currentSelectedItemInfo;
-    infoWindow.setContent(buildContent(currentSelectedItem, currentSelectedItemInfo));
+    $('#button42').attr('href', 'javascript:unselectCurrent()').toggleClass('btn-success').toggleClass('btn-danger').html('Remove');
     drawPolylineThroughItems(currentSelectedLocationsArray);
 }
 
@@ -141,7 +136,7 @@ function unselectCurrent()
             currentSelectedLocationsArray.splice(i, 1);
         }
     }
-    infoWindow.setContent(buildContent(currentSelectedItem, currentSelectedItemInfo));
+    $('#button42').attr('href', 'javascript:selectCurrent()').toggleClass('btn-danger').toggleClass('btn-success').html('Add');
     drawPolylineThroughItems(currentSelectedLocationsArray);
 }
 
