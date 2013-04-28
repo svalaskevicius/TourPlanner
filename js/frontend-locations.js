@@ -4,6 +4,7 @@ var currentSelectedLocationsArray = [];
 var currentSelectedLocationsInfoArray = [];
 var currentSelectedItem;
 var currentSelectedItemInfo;
+var currentLine;
 
 function callForLocations() {
     $.ajax({
@@ -85,6 +86,7 @@ function selectCurrent()
     currentSelectedLocationsArray[currentSelectedLocationsArray.length] = currentSelectedItem;
     currentSelectedLocationsInfoArray[currentSelectedLocationsInfoArray.length] = currentSelectedItemInfo;
     infoWindow.setContent(buildContent(currentSelectedItem, currentSelectedItemInfo));
+    drawPolylineThroughItems(currentSelectedLocationsArray);
 }
 
 function unselectCurrent()
@@ -96,6 +98,7 @@ function unselectCurrent()
         }
     }
     infoWindow.setContent(buildContent(currentSelectedItem, currentSelectedItemInfo));
+    drawPolylineThroughItems(currentSelectedLocationsArray);
 }
 
 function isInSelected(title)
@@ -107,4 +110,23 @@ function isInSelected(title)
         }
     });
     return result;
+}
+
+function drawPolylineThroughItems(items)
+{
+    var lineCoordinates = [];
+    for (var i in items) {
+        lineCoordinates[lineCoordinates.length] = items[i].getPosition();
+    }
+    if (currentLine) {
+        currentLine.setPath(lineCoordinates);
+    } else {
+        currentLine = new google.maps.Polyline({
+            path: lineCoordinates,
+            strokeColor: "#FF0000",
+            strokeOpacity: 1.0,
+            strokeWeight: 2,
+            map: map
+        });
+    }
 }
